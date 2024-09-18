@@ -1,29 +1,69 @@
-body {
+/* Reset styles */
+body, ul, li, a, button {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
     font-family: Arial, sans-serif;
 }
 
-header, footer {
-    background-color: #f8f8f8;
-    padding: 10px;
+header {
+    background-color: #333;
+    color: #fff;
     text-align: center;
+    padding: 10px 0;
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 10px;
+.main-nav {
+    display: flex;
+    justify-content: center;
+    background: #444;
 }
 
-nav ul li ul li {
+.main-nav > li {
+    position: relative;
+}
+
+.main-nav > li > a {
     display: block;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
 }
 
-section {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: #666;
+    z-index: 1;
+    width: 100%;
 }
+
+.dropdown li a {
+    display: block;
+    padding: 10px 20px;
+    color: white;
+}
+
+.main-nav li:hover .dropdown {
+    display: block;
+    color: aqua;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+}
+
+

@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sociologists Timeline</title>
+    <title>Explore Sociology</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <h1>Explore Sociology</h1>
+        <button class="menu-toggle">☰</button> <!-- Menu toggle button -->
         <nav>
-            <ul>
+            <ul class="main-nav">
                 <li><a href="#sociology">Sociology</a>
-                    <ul>
+                    <ul class="dropdown">
                         <li><a href="sociologists.html">Significant Sociologists</a></li>
                     </ul>
                 </li>
                 <li><a href="#education">Education</a>
-                    <ul>
+                    <ul class="dropdown">
                         <li><a href="#future">The Future of Education</a></li>
                     </ul>
                 </li>
@@ -38,5 +39,21 @@
     <footer>
         <p>Copyright © 2024 by Explore Sociology</p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+    
+            menuToggle.addEventListener('click', function() {
+                if (mainNav.style.display === 'flex') {
+                    mainNav.style.display = 'none';
+                } else {
+                    mainNav.style.display = 'flex';
+                }
+            });
+        });
+        </script>
+
 </body>
 </html>
+
