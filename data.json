@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Harriet Martineau",
+        "birth": 1802,
+        "death": 1876,
+        "theoryYear": 1838,
+        "contribution": "Gender and race inequality; translated Comte's work to English",
+        "keyWorks": "Society in America (1837)",
+        "wikiUrl": "https://en.wikipedia.org/wiki/Harriet_Martineau"
+    },
+    {
+        "name": "Karl Marx",
+        "birth": 1818,
+        "death": 1883,
+        "theoryYear": 1848,
+        "contribution": "Conflict theory; materialist conception of history, class struggle",
+        "keyWorks": "Das Kapital (1867)",
+        "wikiUrl": "https://en.wikipedia.org/wiki/Karl_Marx"
+    }
+]
