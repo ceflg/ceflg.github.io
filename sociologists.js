@@ -50,11 +50,11 @@ function drawTimeline(data) {
         .attr("r", 5)
         .attr("fill", "steelblue");
 
-    // Draw info texts slightly left from the original position
+    // Draw info texts
     g.selectAll(".info-text")
         .data(data)
         .enter().append("text")
-        .attr("x", d => xScale(d.theoryYear) - 10)  // Shift text slightly left
+        .attr("x", d => xScale(d.theoryYear) - 10) 
         .attr("y", d => yScale(d.name) - 20)
         .attr("text-anchor", "start")
         .attr("font-size", "12px")
@@ -74,7 +74,7 @@ function drawTimeline(data) {
     g.selectAll(".theory-year-text")
         .data(data)
         .enter().append("text")
-        .attr("x", d => xScale(d.theoryYear) - 10)  // Adjust position to align with the shifted text
+        .attr("x", d => xScale(d.theoryYear) - 10) 
         .attr("y", d => yScale(d.name) - 10)
         .text(d => d.theoryYear)
         .attr("text-anchor", "start")

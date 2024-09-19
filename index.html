@@ -51,7 +51,24 @@
                     mainNav.style.display = 'flex';
                 }
             });
-        });
+        // Auth0 Client
+        const auth0 = createAuth0Client({
+                        domain: 'dev-ceflg.eu.auth0.com',
+                        client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
+                        redirect_uri: window.location.origin
+                    });
+
+                    // Handle authentication
+                    const isAuthenticated = auth0.isAuthenticated();
+                    if (isAuthenticated) {
+                        // Show the user's profile
+                        const user = auth0.getUser();
+                        console.log(user);
+                    } else {
+                        // Not authenticated, trigger login
+                        auth0.loginWithRedirect();
+                    }
+                });
         </script>
 
 </body>
