@@ -5,6 +5,8 @@
     <title>Explore Sociology</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <!-- Auth0 SDK lisätty -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
 </head>
 <body>
     <header>
@@ -39,8 +41,9 @@
     <footer>
         <p>Copyright © 2024 by Explore Sociology</p>
     </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', async function() {
             const menuToggle = document.querySelector('.menu-toggle');
             const mainNav = document.querySelector('.main-nav');
     
@@ -51,26 +54,25 @@
                     mainNav.style.display = 'flex';
                 }
             });
-        // Auth0 Client
-        const auth0 = createAuth0Client({
-                        domain: 'dev-ceflg.eu.auth0.com',
-                        client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
-                        redirect_uri: window.location.origin
-                    });
 
-                    // Handle authentication
-                    const isAuthenticated = auth0.isAuthenticated();
-                    if (isAuthenticated) {
-                        // Show the user's profile
-                        const user = auth0.getUser();
-                        console.log(user);
-                    } else {
-                        // Not authenticated, trigger login
-                        auth0.loginWithRedirect();
-                    }
-                });
-        </script>
+            // Luo Auth0 Client asynkronisesti
+            const auth0 = await createAuth0Client({
+                domain: 'dev-ceflg.eu.auth0.com',
+                client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
+                redirect_uri: window.location.origin
+            });
 
+            // Käsittele autentikointi
+            const isAuthenticated = await auth0.isAuthenticated();
+            if (isAuthenticated) {
+                // Näytä käyttäjän profiili
+                const user = await auth0.getUser();
+                console.log(user);
+            } else {
+                // Ei autentikoitu, käynnistä kirjautuminen
+                await auth0.loginWithRedirect();
+            }
+        });
+    </script>
 </body>
 </html>
-
