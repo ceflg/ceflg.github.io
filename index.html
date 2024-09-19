@@ -43,32 +43,28 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainNav = document.querySelector('.main-nav');
-    
-            menuToggle.addEventListener('click', function() {
-                if (mainNav.style.display === 'flex') {
-                    mainNav.style.display = 'none';
-                } else {
-                    mainNav.style.display = 'flex';
-                }
-            });
+        document.addEventListener('DOMContentLoaded', async () => {
+        const auth0 = await createAuth0Client({
+            domain: 'dev-ceflg.eu.auth0.com',
+            client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
+            redirect_uri: window.location.origin
+        });
 
-            // Luo Auth0 Client asynkronisesti
-            const auth0 = await createAuth0Client({
-                domain: 'dev-ceflg.eu.auth0.com',
-                client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
-                redirect_uri: window.location.origin
-            });
+        // Tarkista, sisältääkö URL autentikointikoodin
+        if (window.location.search.includes('code=')) {
+            // Käsittele redirect callback ja puhdista URL
+            await auth0.handleRedirectCallback();
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
 
-            // Käsittele autentikointi
-            const isAuthenticated = await auth0.isAuthenticated();
-            if (isAuthenticated) {
-                // Näytä käyttäjän profiili
-                const user = await auth0.getUser();
-                console.log(user);
-            } else {
+        // Tarkista onko käyttäjä autentikoitu
+        const isAuthenticated = await auth0.isAuthenticated();
+        if (isAuthenticated) {
+            // Näytä käyttäjän profiili
+            const user = await auth0.getUser();
+            console.log(user);
+            // Jatka sovelluksen normaalia logiikkaa
+        } else {
                 // Ei autentikoitu, käynnistä kirjautuminen
                 await auth0.loginWithRedirect();
             }
