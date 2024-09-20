@@ -44,32 +44,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const auth0 = await createAuth0Client({
-                domain: 'dev-ceflg.eu.auth0.com',
-                client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
-                redirect_uri: window.location.origin
-            });
-
-            if (window.location.search.includes('code=')) {
-                await auth0.handleRedirectCallback();
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-
-            const isAuthenticated = await auth0.isAuthenticated();
-            if (isAuthenticated) {
-                const user = await auth0.getUser();
-                console.log(user);
+            console.log('Current hostname:', window.location.hostname);
+        // Tarkistetaan, onko hostname 'localhost' tai '127.0.0.1'
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('Skipping authentication in local development environment');
+            setupAuthenticatedSession({ name: "Local Dev User", email: "dev@example.com" });
             } else {
-                await auth0.loginWithRedirect();
-            }
-
-            document.getElementById('logout').addEventListener('click', () => {
-                auth0.logout({
-                    returnTo: window.location.origin
+                const auth0 = await createAuth0Client({
+                    domain: 'dev-ceflg.eu.auth0.com',
+                    client_id: 'OQmh2Tt36nz75RCfMCpmRHIq9KZ1gTt0',
+                    redirect_uri: window.location.origin
                 });
-            });
+        
+                if (window.location.search.includes('code=')) {
+                    await auth0.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+        
+                const isAuthenticated = await auth0.isAuthenticated();
+                if (isAuthenticated) {
+                    const user = await auth0.getUser();
+                    console.log('Authenticated:', user);
+                    setupAuthenticatedSession(user);
+                } else {
+                    await auth0.loginWithRedirect();
+                }
+        
+                document.getElementById('logout').addEventListener('click', () => {
+                    auth0.logout({
+                        returnTo: window.location.origin
+                    });
+                });
+            }
         });
-    </script>
+        
+        function setupAuthenticatedSession(user) {
+            console.log('User:', user);
+            // Täällä voit määrittää käyttäjäkohtaisia tietoja, esim. päivittää UI:n käyttäjän tiedoilla
+        }
+        </script>
 </body>
 </html>
 
